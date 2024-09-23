@@ -102,3 +102,38 @@
 //!
 //! FIXME(jieyouxu): can this be made easy to extend? E.g. adding new directives and adding new test
 //! modes / test suites.
+
+/// A [`TestMode`] constitutes a common test running behavior and setup for its associated
+/// [`TestSuite`]s.
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum TestMode {
+    Ui,
+    RunMake,
+    Codegen,
+    Assembly,
+}
+
+/// A [`TestSuite`] is a specialization of a [`TestMode`] which may introduce minor variations. If
+/// the difference is significant enough, it should be made into its own [`TestMode`].
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum TestSuite {
+    Ui,
+    UiFulldeps,
+    RunMake,
+    Codegen,
+    Assembly,
+}
+
+impl TestSuite {
+    /// Which [`TestMode`] this [`TestSuite`] belongs to.
+    pub fn mode(self) -> TestMode {
+        // Note: this is setup purposefully to demonstrate that a test mode is a one-to-many mapping
+        // to test suites.
+        match self {
+            TestSuite::Ui | TestSuite::UiFulldeps => TestMode::Ui,
+            TestSuite::RunMake => TestMode::RunMake,
+            TestSuite::Codegen => TestMode::Codegen,
+            TestSuite::Assembly => TestMode::Assembly,
+        }
+    }
+}
