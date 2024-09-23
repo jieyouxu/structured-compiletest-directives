@@ -97,6 +97,10 @@
 //! - Some `compile-flags` are:
 //!     - Invalid or banned under certain test modes (e.g. `-C incremental` under ui test mode).
 //!     - Mutually exclusive with some other directives.
+//! - First-class support for cross-compile ui/codegen/assembly/run-make tests, e.g.
+//!   `cross-compile-targets` that replaces `compile-flags: --target thumbv8m.main-none-eabi` +
+//!   `needs-llvm-components: arm` and catches something that tries to use both in combination
+//!   instead of the dedicated directive.
 //! - Some directives are mutually exclusive with each other.
 //!
 //! # Unresolved questions
