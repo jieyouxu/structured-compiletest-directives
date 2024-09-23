@@ -9,7 +9,7 @@ members = [
 version = "0.1.0"
 edition = "2021"
 
-[workspace.depdencies]
+[workspace.dependencies]
 anyhow = "1"
 thiserror = "1"
 fs-err = "2.11.0"

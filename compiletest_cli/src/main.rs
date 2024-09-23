@@ -1,3 +1,7 @@
+mod logging;
+
 fn main() {
-    println!("Hello, world!");
+    logging::setup_logging();
+
+    todo!()
 }
