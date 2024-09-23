@@ -25,8 +25,8 @@ Before:
 
 After:
 
-```rs
-//! \`\`\`compiletest
+````rs
+//! ```compiletest
 //! mode = "run-pass"
 //! revisions = ["current", "next"]
 //!
@@ -41,5 +41,5 @@ After:
 //! # next solver
 //! [revision."next"]
 //! compile-flags = ["-Znext-solver", "-C opt-level=0"]
-//! \`\`\`
-```
+//! ```
+````
