@@ -51,8 +51,9 @@
 //!   `[references]` section that allows arbitrary keys (e.g. `fls` for ferrocene or `spec`), or
 //!   make it easy to extend.
 //!     - We should make it open and relatively easy for `compiletest` to report test metadata which
-//!       can possibly be consumed by external tooling. E.g. `compiletest --report-test-metadata tests/ui/abi/compatibility.rs` might
-//!       for example generate some JSON like (illustrative, format subject to change):
+//!       can possibly be consumed by external tooling. E.g. `compiletest --report-test-metadata
+//!       tests/ui/abi/compatibility.rs` might for example generate some JSON like (illustrative,
+//!       format subject to change):
 //!
 //!       ```bash
 //!       $ ./compiletest --report-test-metadata tests/ui/abi/compatibility.rs
