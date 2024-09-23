@@ -82,6 +82,9 @@
 //!       }
 //!       ```
 //!
+//! - We want to split directive names (e.g. `compile-flags`) from directive (key-)values (e.g. for
+//!   ignore, value of `target-arch` vs the ignore reason).
+//!
 //! [test rule annotations]:
 //!     https://rust-lang.zulipchat.com/#narrow/stream/233931-t-compiler.2Fmajor-changes/topic/Test.20rule.20annotations.20compiler-team.23783
 //!
@@ -105,6 +108,17 @@
 //!   `needs-llvm-components: arm` and catches something that tries to use both in combination
 //!   instead of the dedicated directive.
 //! - Some directives are mutually exclusive with each other.
+//! - We need to be robust for directive value handling, e.g.:
+//!     - For `compile-flags`, [`std::process::Command`] doesn't handle whitespace in `arg` very
+//!       well like `-C panic=abort`, which I think we need to canonicalize into either `-C` +
+//!       `panic=abort` or just `-Cpanic=abort`. This may involve us needing to implement our own
+//!       cli arg whitespace splitting logic which is full of landmines, but better us than having
+//!       the test writer bash their head into weird quirks.
+//!     - Need to handle string escapes versus arg splitting well, e.g. `compile-flags =
+//!       ["--out-dir=\"hello world\""]` needs to properly be kept as `--out-dir="hello world"` and
+//!       not be split as two args `--out-dir="hello` and `world"`. This also needs to handle nested
+//!       escape, like: `normalize-stderr = { pattern = "\\\"hello world\\\\"", replace = "\"\"" }`
+//!       or whatever.
 //!
 //! # Unresolved questions
 //!
